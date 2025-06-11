@@ -26,6 +26,7 @@ import Timesheet from "./pages/Timesheet";
 import ServiceHistory from "./pages/ServiceHistory";
 import Billing from "./pages/Billing";
 import PurchaseOrders from "./pages/PurchaseOrders";
+import Suppliers from "./pages/Suppliers";
 
 const queryClient = new QueryClient();
 
@@ -171,6 +172,14 @@ const AppContent = () => {
               <Navigation />
               <main className="flex-1 overflow-auto">
                 <PurchaseOrders />
+              </main>
+            </div>
+          } />
+          <Route path="/suppliers" element={
+            <div className="flex h-screen bg-background">
+              <Navigation />
+              <main className="flex-1 overflow-auto">
+                <Suppliers />
               </main>
             </div>
           } />
