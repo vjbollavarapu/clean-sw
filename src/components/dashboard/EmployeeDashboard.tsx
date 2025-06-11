@@ -8,6 +8,7 @@ import EmployeeTimeTracking from './employee/EmployeeTimeTracking';
 import EmployeeRecentActivity from './employee/EmployeeRecentActivity';
 import EmployeeUpcomingDeadlines from './employee/EmployeeUpcomingDeadlines';
 import EmployeeQuickActions from './employee/EmployeeQuickActions';
+import LeaveApplication from './employee/LeaveApplication';
 
 interface EmployeeDashboardProps {
   user: any;
@@ -72,53 +73,62 @@ const EmployeeDashboard = ({ user }: EmployeeDashboardProps) => {
         </div>
       </div>
 
-      {/* Bottom Row */}
-      <div className="grid gap-6 md:grid-cols-2">
+      {/* Bottom Row - Updated Layout */}
+      <div className="grid gap-6 lg:grid-cols-3">
         {/* Recent Activity */}
-        <EmployeeRecentActivity recentActivities={recentActivities} />
+        <div className="lg:col-span-1">
+          <EmployeeRecentActivity recentActivities={recentActivities} />
+        </div>
+
+        {/* Leave Application */}
+        <div className="lg:col-span-1">
+          <LeaveApplication />
+        </div>
 
         {/* My Assigned Tasks */}
-        <Card>
-          <CardHeader>
-            <CardTitle>My Assigned Tasks</CardTitle>
-            <CardDescription>Current service orders assigned to you</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {myTasks.length > 0 ? (
-              <div className="space-y-3">
-                {myTasks.slice(0, 5).map(task => (
-                  <div key={task.id} className="p-3 border rounded-lg">
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1">
-                        <h4 className="font-medium text-sm">{task.serviceType}</h4>
-                        <p className="text-sm text-muted-foreground">{task.clientName}</p>
-                        <p className="text-xs text-muted-foreground">{task.location}</p>
+        <div className="lg:col-span-1">
+          <Card>
+            <CardHeader>
+              <CardTitle>My Assigned Tasks</CardTitle>
+              <CardDescription>Current service orders assigned to you</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {myTasks.length > 0 ? (
+                <div className="space-y-3">
+                  {myTasks.slice(0, 5).map(task => (
+                    <div key={task.id} className="p-3 border rounded-lg">
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <h4 className="font-medium text-sm">{task.serviceType}</h4>
+                          <p className="text-sm text-muted-foreground">{task.clientName}</p>
+                          <p className="text-xs text-muted-foreground">{task.location}</p>
+                        </div>
+                        <Badge variant={
+                          task.status === 'completed' ? 'default' :
+                          task.status === 'in-progress' ? 'secondary' :
+                          'outline'
+                        }>
+                          {task.status.replace('-', ' ')}
+                        </Badge>
                       </div>
-                      <Badge variant={
-                        task.status === 'completed' ? 'default' :
-                        task.status === 'in-progress' ? 'secondary' :
-                        'outline'
-                      }>
-                        {task.status.replace('-', ' ')}
-                      </Badge>
+                      <div className="mt-2 flex justify-between items-center text-xs text-muted-foreground">
+                        <span>Due: {new Date(task.scheduledDate).toLocaleDateString()}</span>
+                        <span className="font-medium">${task.amount.toLocaleString()}</span>
+                      </div>
                     </div>
-                    <div className="mt-2 flex justify-between items-center text-xs text-muted-foreground">
-                      <span>Due: {new Date(task.scheduledDate).toLocaleDateString()}</span>
-                      <span className="font-medium">${task.amount.toLocaleString()}</span>
-                    </div>
-                  </div>
-                ))}
-                {myTasks.length > 5 && (
-                  <p className="text-sm text-muted-foreground text-center pt-2">
-                    +{myTasks.length - 5} more tasks
-                  </p>
-                )}
-              </div>
-            ) : (
-              <p className="text-muted-foreground text-center py-6">No tasks assigned currently.</p>
-            )}
-          </CardContent>
-        </Card>
+                  ))}
+                  {myTasks.length > 5 && (
+                    <p className="text-sm text-muted-foreground text-center pt-2">
+                      +{myTasks.length - 5} more tasks
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <p className="text-muted-foreground text-center py-6">No tasks assigned currently.</p>
+              )}
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
