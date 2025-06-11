@@ -22,6 +22,7 @@ import Attendance from "./pages/Attendance";
 import Payroll from "./pages/Payroll";
 import Tasks from "./pages/Tasks";
 import Timesheet from "./pages/Timesheet";
+import ServiceHistory from "./pages/ServiceHistory";
 
 const queryClient = new QueryClient();
 
@@ -143,6 +144,14 @@ const AppContent = () => {
               <Navigation />
               <main className="flex-1 overflow-auto">
                 <Timesheet />
+              </main>
+            </div>
+          } />
+          <Route path="/services" element={
+            <div className="flex h-screen bg-background">
+              <Navigation />
+              <main className="flex-1 overflow-auto">
+                <ServiceHistory />
               </main>
             </div>
           } />
