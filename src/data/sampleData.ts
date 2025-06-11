@@ -1,10 +1,9 @@
-
 import { User, ServiceOrder, Employee, Client, InventoryItem, FinancialRecord } from '../types';
 
 export const sampleUsers: User[] = [
   {
     id: '1',
-    email: 'admin@cleancorp.com',
+    email: 'admin@cleaningco.com',
     name: 'John Admin',
     role: 'Administrator',
     department: 'IT',
@@ -15,7 +14,7 @@ export const sampleUsers: User[] = [
   },
   {
     id: '2',
-    email: 'manager@cleancorp.com',
+    email: 'manager@cleaningco.com',
     name: 'Sarah Manager',
     role: 'Management',
     department: 'Operations',
@@ -26,13 +25,53 @@ export const sampleUsers: User[] = [
   },
   {
     id: '3',
-    email: 'hr@cleancorp.com',
+    email: 'hr@cleaningco.com',
     name: 'Mike HR',
     role: 'HR Manager',
     department: 'Human Resources',
     phone: '+1 (555) 345-6789',
     isActive: true,
     createdAt: '2024-01-17T11:15:00Z'
+  },
+  {
+    id: '4',
+    email: 'employee1@cleaningco.com',
+    name: 'Alice Employee',
+    role: 'Employee',
+    department: 'Operations',
+    phone: '+1 (555) 456-7890',
+    isActive: true,
+    createdAt: '2024-01-18T08:00:00Z'
+  },
+  {
+    id: '5',
+    email: 'client@business.com',
+    name: 'Business Client',
+    role: 'Client',
+    department: 'External',
+    phone: '+1 (555) 567-8901',
+    isActive: true,
+    createdAt: '2024-01-19T10:30:00Z'
+  },
+  {
+    id: '6',
+    email: 'procurement@cleaningco.com',
+    name: 'Procurement Manager',
+    role: 'Procurement',
+    department: 'Procurement',
+    phone: '+1 (555) 678-9012',
+    isActive: true,
+    createdAt: '2024-01-20T09:00:00Z'
+  },
+  {
+    id: '7',
+    email: 'accounts@cleaningco.com',
+    name: 'Accounts Manager',
+    role: 'Accounts',
+    department: 'Finance',
+    phone: '+1 (555) 789-0123',
+    isActive: true,
+    createdAt: '2024-01-21T11:00:00Z'
   }
 ];
 
