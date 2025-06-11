@@ -22,6 +22,11 @@ const Navigation = () => {
 
   if (!user) return null;
 
+  const handleLogout = () => {
+    console.log('Logout button clicked');
+    logout();
+  };
+
   const getNavigationItems = () => {
     const baseItems = [
       { icon: Home, label: 'Dashboard', path: '/dashboard' }
@@ -133,7 +138,7 @@ const Navigation = () => {
         <Button
           variant="ghost"
           className="w-full justify-start text-destructive hover:text-destructive"
-          onClick={logout}
+          onClick={handleLogout}
         >
           <LogOut className="mr-2 h-4 w-4" />
           Logout
