@@ -5,17 +5,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';
 import { 
-  CreditCard, 
-  Download, 
+  FileText, 
+  Plus, 
+  TrendingUp, 
   DollarSign, 
-  Calendar, 
-  AlertCircle, 
-  CheckCircle, 
-  Clock, 
-  Plus,
-  FileText,
-  TrendingUp,
-  Bell
+  Calendar,
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  CreditCard,
+  Settings,
+  History
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import BillingOverview from '../components/billing/BillingOverview';
@@ -28,12 +28,14 @@ const Billing = () => {
   const [activeTab, setActiveTab] = useState('overview');
 
   const billingStats = {
-    currentBalance: 2450.00,
-    nextPaymentDue: '2024-06-20',
-    monthlySpend: 3200.00,
-    unpaidInvoices: 2,
-    totalInvoices: 15,
-    averageMonthlyBill: 2850.00
+    totalRevenue: 245000,
+    pendingInvoices: 12,
+    overdueInvoices: 3,
+    paidThisMonth: 85,
+    avgPaymentTime: 14.5,
+    outstandingAmount: 42800,
+    monthlyGrowth: 8.3,
+    clientCount: 156
   };
 
   return (
@@ -41,30 +43,30 @@ const Billing = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Billing & Invoices</h1>
-          <p className="text-muted-foreground">Manage your billing, view invoices, and track payments</p>
+          <h1 className="text-3xl font-bold text-foreground">Billing Management</h1>
+          <p className="text-muted-foreground">Manage invoices, payments, and billing operations</p>
         </div>
         <div className="flex items-center space-x-2">
-          <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
-            <CreditCard className="h-3 w-3 mr-1" />
-            Auto-Pay Enabled
+          <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+            <TrendingUp className="h-3 w-3 mr-1" />
+            +{billingStats.monthlyGrowth}% This Month
           </Badge>
           <Button>
             <Plus className="h-4 w-4 mr-2" />
-            Request Invoice
+            New Invoice
           </Button>
         </div>
       </div>
 
       {/* Quick Stats */}
-      <div className="grid gap-4 md:grid-cols-6">
+      <div className="grid gap-4 md:grid-cols-8">
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
-              <DollarSign className="h-4 w-4 text-red-500" />
+              <DollarSign className="h-4 w-4 text-green-500" />
               <div>
-                <p className="text-sm font-medium">Current Balance</p>
-                <p className="text-2xl font-bold text-red-600">${billingStats.currentBalance}</p>
+                <p className="text-sm font-medium">Total Revenue</p>
+                <p className="text-2xl font-bold text-green-600">${billingStats.totalRevenue.toLocaleString()}</p>
               </div>
             </div>
           </CardContent>
@@ -72,10 +74,10 @@ const Billing = () => {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
-              <Calendar className="h-4 w-4 text-orange-500" />
+              <Clock className="h-4 w-4 text-orange-500" />
               <div>
-                <p className="text-sm font-medium">Next Payment</p>
-                <p className="text-2xl font-bold text-orange-600">Jun 20</p>
+                <p className="text-sm font-medium">Pending</p>
+                <p className="text-2xl font-bold text-orange-600">{billingStats.pendingInvoices}</p>
               </div>
             </div>
           </CardContent>
@@ -83,10 +85,10 @@ const Billing = () => {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
-              <TrendingUp className="h-4 w-4 text-blue-500" />
+              <AlertCircle className="h-4 w-4 text-red-500" />
               <div>
-                <p className="text-sm font-medium">Monthly Spend</p>
-                <p className="text-2xl font-bold text-blue-600">${billingStats.monthlySpend}</p>
+                <p className="text-sm font-medium">Overdue</p>
+                <p className="text-2xl font-bold text-red-600">{billingStats.overdueInvoices}</p>
               </div>
             </div>
           </CardContent>
@@ -94,10 +96,10 @@ const Billing = () => {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
-              <AlertCircle className="h-4 w-4 text-yellow-500" />
+              <CheckCircle className="h-4 w-4 text-blue-500" />
               <div>
-                <p className="text-sm font-medium">Unpaid</p>
-                <p className="text-2xl font-bold text-yellow-600">{billingStats.unpaidInvoices}</p>
+                <p className="text-sm font-medium">Paid This Month</p>
+                <p className="text-2xl font-bold text-blue-600">{billingStats.paidThisMonth}</p>
               </div>
             </div>
           </CardContent>
@@ -105,10 +107,10 @@ const Billing = () => {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
-              <FileText className="h-4 w-4 text-green-500" />
+              <Calendar className="h-4 w-4 text-purple-500" />
               <div>
-                <p className="text-sm font-medium">Total Invoices</p>
-                <p className="text-2xl font-bold text-green-600">{billingStats.totalInvoices}</p>
+                <p className="text-sm font-medium">Avg Payment Time</p>
+                <p className="text-xl font-bold text-purple-600">{billingStats.avgPaymentTime}d</p>
               </div>
             </div>
           </CardContent>
@@ -116,34 +118,56 @@ const Billing = () => {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
-              <TrendingUp className="h-4 w-4 text-purple-500" />
+              <DollarSign className="h-4 w-4 text-yellow-500" />
               <div>
-                <p className="text-sm font-medium">Avg Monthly</p>
-                <p className="text-2xl font-bold text-purple-600">${billingStats.averageMonthlyBill}</p>
+                <p className="text-sm font-medium">Outstanding</p>
+                <p className="text-xl font-bold text-yellow-600">${billingStats.outstandingAmount.toLocaleString()}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <TrendingUp className="h-4 w-4 text-teal-500" />
+              <div>
+                <p className="text-sm font-medium">Growth Rate</p>
+                <p className="text-xl font-bold text-teal-600">+{billingStats.monthlyGrowth}%</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <FileText className="h-4 w-4 text-indigo-500" />
+              <div>
+                <p className="text-sm font-medium">Active Clients</p>
+                <p className="text-xl font-bold text-indigo-600">{billingStats.clientCount}</p>
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Billing Tabs */}
+      {/* Billing Management Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview" className="flex items-center space-x-2">
-            <TrendingUp className="h-4 w-4" />
-            <span className="hidden sm:inline">Overview</span>
+            <DollarSign className="h-4 w-4" />
+            <span>Overview</span>
           </TabsTrigger>
           <TabsTrigger value="invoices" className="flex items-center space-x-2">
             <FileText className="h-4 w-4" />
-            <span className="hidden sm:inline">Invoices</span>
+            <span>Invoices</span>
           </TabsTrigger>
           <TabsTrigger value="payments" className="flex items-center space-x-2">
             <CreditCard className="h-4 w-4" />
-            <span className="hidden sm:inline">Payment History</span>
+            <span>Payments</span>
           </TabsTrigger>
           <TabsTrigger value="settings" className="flex items-center space-x-2">
-            <Bell className="h-4 w-4" />
-            <span className="hidden sm:inline">Settings</span>
+            <Settings className="h-4 w-4" />
+            <span>Settings</span>
           </TabsTrigger>
         </TabsList>
 
