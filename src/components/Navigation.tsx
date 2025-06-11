@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -13,7 +12,8 @@ import {
   Building, 
   ShoppingCart,
   LogOut,
-  Settings
+  Settings,
+  BarChart3
 } from 'lucide-react';
 
 const Navigation = () => {
@@ -35,6 +35,7 @@ const Navigation = () => {
           { icon: ClipboardList, label: 'Service Orders', path: '/orders' },
           { icon: Package, label: 'Inventory', path: '/inventory' },
           { icon: DollarSign, label: 'Financial Reports', path: '/financial' },
+          { icon: BarChart3, label: 'Analytics & Reports', path: '/reports' },
           { icon: Settings, label: 'System Settings', path: '/settings' }
         ];
       
@@ -44,7 +45,8 @@ const Navigation = () => {
           { icon: ClipboardList, label: 'Service Orders', path: '/orders' },
           { icon: Users, label: 'Employees', path: '/employees' },
           { icon: Building, label: 'Clients', path: '/clients' },
-          { icon: DollarSign, label: 'Reports', path: '/reports' }
+          { icon: BarChart3, label: 'Reports', path: '/reports' },
+          { icon: DollarSign, label: 'Financial', path: '/financial' }
         ];
       
       case 'HR Manager':
@@ -52,7 +54,8 @@ const Navigation = () => {
           ...baseItems,
           { icon: Users, label: 'Employee Management', path: '/employees' },
           { icon: UserCheck, label: 'Attendance', path: '/attendance' },
-          { icon: DollarSign, label: 'Payroll', path: '/payroll' }
+          { icon: DollarSign, label: 'Payroll', path: '/payroll' },
+          { icon: BarChart3, label: 'HR Reports', path: '/reports' }
         ];
       
       case 'Employee':
@@ -74,7 +77,8 @@ const Navigation = () => {
           ...baseItems,
           { icon: Package, label: 'Inventory', path: '/inventory' },
           { icon: ShoppingCart, label: 'Purchase Orders', path: '/purchase-orders' },
-          { icon: Building, label: 'Suppliers', path: '/suppliers' }
+          { icon: Building, label: 'Suppliers', path: '/suppliers' },
+          { icon: BarChart3, label: 'Inventory Reports', path: '/reports' }
         ];
       
       case 'Accounts':
@@ -82,7 +86,8 @@ const Navigation = () => {
           ...baseItems,
           { icon: DollarSign, label: 'Financial Dashboard', path: '/financial' },
           { icon: ClipboardList, label: 'Invoices', path: '/invoices' },
-          { icon: Building, label: 'Client Billing', path: '/billing' }
+          { icon: Building, label: 'Client Billing', path: '/billing' },
+          { icon: BarChart3, label: 'Financial Reports', path: '/reports' }
         ];
       
       default:
