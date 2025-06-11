@@ -11,6 +11,7 @@ import HRTopPerformers from './hr/HRTopPerformers';
 import HREmployeeActivity from './hr/HREmployeeActivity';
 import HRUpcomingEvents from './hr/HRUpcomingEvents';
 import HRRecruitment from './hr/HRRecruitment';
+import HRPayroll from './hr/HRPayroll';
 
 const HRDashboard = () => {
   // Use custom hooks for data processing
@@ -37,6 +38,9 @@ const HRDashboard = () => {
 
       {/* Recruitment Management */}
       <HRRecruitment />
+
+      {/* Payroll Management */}
+      <HRPayroll />
 
       {/* Salary and Hiring Analytics */}
       <HRAnalytics 
