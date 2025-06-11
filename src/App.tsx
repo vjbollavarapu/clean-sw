@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import ServiceOrders from "./pages/ServiceOrders";
 import NewServiceOrder from "./pages/NewServiceOrder";
 import ServiceOrderDetails from "./pages/ServiceOrderDetails";
+import Employees from "./pages/Employees";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,14 @@ const AppContent = () => {
               <Navigation />
               <main className="flex-1 overflow-auto">
                 <ServiceOrderDetails />
+              </main>
+            </div>
+          } />
+          <Route path="/employees" element={
+            <div className="flex h-screen bg-background">
+              <Navigation />
+              <main className="flex-1 overflow-auto">
+                <Employees />
               </main>
             </div>
           } />
