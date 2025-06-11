@@ -1,5 +1,6 @@
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { User } from '../types';
 import { sampleUsers } from '../data/sampleData';
 
@@ -45,8 +46,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     console.log('Logout called');
     setUser(null);
     localStorage.removeItem('currentUser');
-    // Force a page refresh to ensure clean state
-    window.location.href = '/';
   };
 
   // Check for existing session on mount

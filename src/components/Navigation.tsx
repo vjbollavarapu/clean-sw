@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from './ui/button';
 import { 
@@ -19,12 +19,14 @@ import {
 const Navigation = () => {
   const { user, logout } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
   if (!user) return null;
 
   const handleLogout = () => {
     console.log('Logout button clicked');
     logout();
+    navigate('/');
   };
 
   const getNavigationItems = () => {
