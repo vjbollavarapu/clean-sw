@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -13,7 +14,8 @@ import {
   ShoppingCart,
   LogOut,
   Settings,
-  BarChart3
+  BarChart3,
+  ListTodo
 } from 'lucide-react';
 
 const Navigation = () => {
@@ -68,7 +70,7 @@ const Navigation = () => {
       case 'Employee':
         return [
           ...baseItems,
-          { icon: ClipboardList, label: 'My Tasks', path: '/tasks' },
+          { icon: ListTodo, label: 'My Tasks', path: '/tasks' },
           { icon: UserCheck, label: 'Time Tracking', path: '/timesheet' }
         ];
       
@@ -114,7 +116,8 @@ const Navigation = () => {
       <div className="flex-1 space-y-2">
         {navigationItems.map((item) => {
           const isActive = location.pathname === item.path || 
-            (item.path === '/orders' && location.pathname.startsWith('/orders'));
+            (item.path === '/orders' && location.pathname.startsWith('/orders')) ||
+            (item.path === '/tasks' && location.pathname.startsWith('/tasks'));
           
           return (
             <Button

@@ -21,6 +21,7 @@ import Reports from "./pages/Reports";
 import SystemSettings from "./pages/SystemSettings";
 import Attendance from "./pages/Attendance";
 import Payroll from "./pages/Payroll";
+import Tasks from "./pages/Tasks";
 
 const queryClient = new QueryClient();
 
@@ -126,6 +127,14 @@ const AppContent = () => {
               <Navigation />
               <main className="flex-1 overflow-auto">
                 <Payroll />
+              </main>
+            </div>
+          } />
+          <Route path="/tasks" element={
+            <div className="flex h-screen bg-background">
+              <Navigation />
+              <main className="flex-1 overflow-auto">
+                <Tasks />
               </main>
             </div>
           } />
