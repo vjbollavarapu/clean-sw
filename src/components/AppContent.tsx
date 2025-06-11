@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -26,6 +25,7 @@ import PurchaseOrders from '../pages/PurchaseOrders';
 import Suppliers from '../pages/Suppliers';
 import Invoices from '../pages/Invoices';
 import UserManagement from '../pages/UserManagement';
+import ContractManagement from '../pages/ContractManagement';
 
 const AppContent = () => {
   const { isAuthenticated } = useAuth();
@@ -38,6 +38,7 @@ const AppContent = () => {
         <>
           <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
           <Route path="/users" element={<Layout><UserManagement /></Layout>} />
+          <Route path="/contracts" element={<Layout><ContractManagement /></Layout>} />
           <Route path="/orders" element={<Layout><ServiceOrders /></Layout>} />
           <Route path="/orders/new" element={<Layout><NewServiceOrder /></Layout>} />
           <Route path="/orders/:id" element={<Layout><ServiceOrderDetails /></Layout>} />

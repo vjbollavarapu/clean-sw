@@ -77,3 +77,23 @@ export interface FinancialRecord {
   date: string;
   reference?: string;
 }
+
+export interface Contract {
+  id: string;
+  contractNumber: string;
+  clientId: string;
+  clientName: string;
+  serviceType: string;
+  startDate: string;
+  endDate: string;
+  monthlyValue: number;
+  totalValue: number;
+  status: 'active' | 'expired' | 'pending' | 'cancelled';
+  locations: string[];
+  assignedCleaners: number;
+  autoRenewal: boolean;
+  renewalNotice: number; // days before expiry
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
