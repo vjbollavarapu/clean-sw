@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
-import { Input } from '../components/ui/input';
-import { Plus, Search, Edit, Eye, Trash2 } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { sampleClients } from '../data/sampleData';
 import { Client } from '../types';
 import ClientModal from '../components/ClientModal';
+import ClientsStats from '../components/ClientsStats';
+import ClientsSearch from '../components/ClientsSearch';
+import ClientsTable from '../components/ClientsTable';
 
 const Clients = () => {
   const { user } = useAuth();
@@ -28,15 +28,6 @@ const Clients = () => {
 
   // Check if user has permission to manage clients
   const canManageClients = user?.role === 'Administrator' || user?.role === 'Management' || user?.role === 'Accounts';
-
-  const getStatusBadge = (status: Client['status']) => {
-    const variants = {
-      active: 'default',
-      inactive: 'secondary'
-    } as const;
-    
-    return <Badge variant={variants[status]}>{status}</Badge>;
-  };
 
   const handleAddClient = () => {
     setSelectedClient(null);
@@ -70,13 +61,6 @@ const Clients = () => {
     }
   };
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
-  };
-
   if (!canManageClients) {
     return (
       <div className="p-6">
@@ -102,132 +86,26 @@ const Clients = () => {
         </Button>
       </div>
 
-      {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Total Clients</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{clients.length}</div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Active Clients</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">
-              {clients.filter(client => client.status === 'active').length}
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
-              {formatCurrency(clients.reduce((sum, client) => sum + client.totalSpent, 0))}
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Total Services</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-purple-600">
-              {clients.reduce((sum, client) => sum + client.serviceHistory, 0)}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <ClientsStats clients={clients} />
 
-      {/* Search and Filters */}
       <Card>
         <CardHeader>
           <CardTitle>Client List</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex items-center space-x-2 mb-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search clients..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8"
-              />
-            </div>
+            <ClientsSearch 
+              searchTerm={searchTerm} 
+              onSearchChange={setSearchTerm} 
+            />
           </div>
 
-          <div className="border rounded-md">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Phone</TableHead>
-                  <TableHead>Address</TableHead>
-                  <TableHead>Services</TableHead>
-                  <TableHead>Total Spent</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredClients.length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={8} className="text-center py-4">
-                      No clients found
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  filteredClients.map((client) => (
-                    <TableRow key={client.id}>
-                      <TableCell className="font-medium">{client.name}</TableCell>
-                      <TableCell>{client.email}</TableCell>
-                      <TableCell>{client.phone}</TableCell>
-                      <TableCell>{client.address}</TableCell>
-                      <TableCell>{client.serviceHistory}</TableCell>
-                      <TableCell>{formatCurrency(client.totalSpent)}</TableCell>
-                      <TableCell>{getStatusBadge(client.status)}</TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex justify-end space-x-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleViewClient(client)}
-                          >
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleEditClient(client)}
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleDeleteClient(client.id)}
-                            className="text-destructive hover:text-destructive"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </div>
+          <ClientsTable
+            clients={filteredClients}
+            onViewClient={handleViewClient}
+            onEditClient={handleEditClient}
+            onDeleteClient={handleDeleteClient}
+          />
         </CardContent>
       </Card>
 
