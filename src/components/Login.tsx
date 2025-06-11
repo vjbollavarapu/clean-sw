@@ -1,23 +1,28 @@
 
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { ArrowLeft } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     
     const success = login(email, password);
-    if (!success) {
+    if (success) {
+      navigate('/dashboard');
+    } else {
       setError('Invalid credentials. Use password123 for any user.');
     }
   };
@@ -35,10 +40,17 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md space-y-6">
+        <div className="flex items-center gap-2 mb-6">
+          <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+            <ArrowLeft className="h-4 w-4" />
+            Back to CleanSW
+          </Link>
+        </div>
+
         <Card>
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl">ERP Login</CardTitle>
-            <CardDescription>Cleaning Services Management System</CardDescription>
+            <CardTitle className="text-2xl">CleanSW Login</CardTitle>
+            <CardDescription>Access your cleaning services management system</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">

@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import Login from "./components/Login";
 import Navigation from "./components/Navigation";
 import Dashboard from "./components/Dashboard";
+import LandingPage from "./pages/LandingPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -15,21 +16,24 @@ const queryClient = new QueryClient();
 const AppContent = () => {
   const { isAuthenticated } = useAuth();
 
-  if (!isAuthenticated) {
-    return <Login />;
-  }
-
   return (
-    <div className="flex h-screen bg-background">
-      <Navigation />
-      <main className="flex-1 overflow-auto">
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          {/* Additional routes will be added here as we build specific modules */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-    </div>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<Login />} />
+      {isAuthenticated && (
+        <>
+          <Route path="/dashboard" element={
+            <div className="flex h-screen bg-background">
+              <Navigation />
+              <main className="flex-1 overflow-auto">
+                <Dashboard />
+              </main>
+            </div>
+          } />
+        </>
+      )}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 };
 
