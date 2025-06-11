@@ -10,6 +10,9 @@ import Navigation from "./components/Navigation";
 import Dashboard from "./components/Dashboard";
 import LandingPage from "./pages/LandingPage";
 import NotFound from "./pages/NotFound";
+import ServiceOrders from "./pages/ServiceOrders";
+import NewServiceOrder from "./pages/NewServiceOrder";
+import ServiceOrderDetails from "./pages/ServiceOrderDetails";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +30,30 @@ const AppContent = () => {
               <Navigation />
               <main className="flex-1 overflow-auto">
                 <Dashboard />
+              </main>
+            </div>
+          } />
+          <Route path="/orders" element={
+            <div className="flex h-screen bg-background">
+              <Navigation />
+              <main className="flex-1 overflow-auto">
+                <ServiceOrders />
+              </main>
+            </div>
+          } />
+          <Route path="/orders/new" element={
+            <div className="flex h-screen bg-background">
+              <Navigation />
+              <main className="flex-1 overflow-auto">
+                <NewServiceOrder />
+              </main>
+            </div>
+          } />
+          <Route path="/orders/:id" element={
+            <div className="flex h-screen bg-background">
+              <Navigation />
+              <main className="flex-1 overflow-auto">
+                <ServiceOrderDetails />
               </main>
             </div>
           } />

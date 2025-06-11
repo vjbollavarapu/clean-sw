@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from './ui/button';
 import { 
@@ -17,12 +18,13 @@ import {
 
 const Navigation = () => {
   const { user, logout } = useAuth();
+  const location = useLocation();
 
   if (!user) return null;
 
   const getNavigationItems = () => {
     const baseItems = [
-      { icon: Home, label: 'Dashboard', path: '/' }
+      { icon: Home, label: 'Dashboard', path: '/dashboard' }
     ];
 
     switch (user.role) {
@@ -98,16 +100,24 @@ const Navigation = () => {
       </div>
       
       <div className="flex-1 space-y-2">
-        {navigationItems.map((item) => (
-          <Button
-            key={item.path}
-            variant="ghost"
-            className="w-full justify-start"
-          >
-            <item.icon className="mr-2 h-4 w-4" />
-            {item.label}
-          </Button>
-        ))}
+        {navigationItems.map((item) => {
+          const isActive = location.pathname === item.path || 
+            (item.path === '/orders' && location.pathname.startsWith('/orders'));
+          
+          return (
+            <Button
+              key={item.path}
+              variant={isActive ? "secondary" : "ghost"}
+              className="w-full justify-start"
+              asChild
+            >
+              <Link to={item.path}>
+                <item.icon className="mr-2 h-4 w-4" />
+                {item.label}
+              </Link>
+            </Button>
+          );
+        })}
       </div>
       
       <div className="border-t border-border pt-4 space-y-2">
