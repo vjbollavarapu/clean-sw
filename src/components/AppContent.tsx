@@ -25,6 +25,7 @@ import Billing from '../pages/Billing';
 import PurchaseOrders from '../pages/PurchaseOrders';
 import Suppliers from '../pages/Suppliers';
 import Invoices from '../pages/Invoices';
+import UserManagement from '../pages/UserManagement';
 
 const AppContent = () => {
   const { isAuthenticated } = useAuth();
@@ -36,6 +37,7 @@ const AppContent = () => {
       {isAuthenticated && (
         <>
           <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+          <Route path="/users" element={<Layout><UserManagement /></Layout>} />
           <Route path="/orders" element={<Layout><ServiceOrders /></Layout>} />
           <Route path="/orders/new" element={<Layout><NewServiceOrder /></Layout>} />
           <Route path="/orders/:id" element={<Layout><ServiceOrderDetails /></Layout>} />
