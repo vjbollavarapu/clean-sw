@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
-import { Input } from '../components/ui/input';
-import { Plus, Search, Edit, Eye, Trash2 } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { sampleEmployees } from '../data/sampleData';
 import { Employee } from '../types';
 import EmployeeModal from '../components/EmployeeModal';
+import EmployeeStats from '../components/employees/EmployeeStats';
+import EmployeeSearch from '../components/employees/EmployeeSearch';
+import EmployeeTable from '../components/employees/EmployeeTable';
 
 const Employees = () => {
   const { user } = useAuth();
@@ -29,16 +29,6 @@ const Employees = () => {
 
   // Check if user has permission to manage employees
   const canManageEmployees = user?.role === 'Administrator' || user?.role === 'Management' || user?.role === 'HR Manager';
-
-  const getStatusBadge = (status: Employee['status']) => {
-    const variants = {
-      active: 'default',
-      inactive: 'secondary',
-      'on-leave': 'destructive'
-    } as const;
-    
-    return <Badge variant={variants[status]}>{status.replace('-', ' ')}</Badge>;
-  };
 
   const handleAddEmployee = () => {
     setSelectedEmployee(null);
@@ -72,17 +62,6 @@ const Employees = () => {
     }
   };
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString();
-  };
-
   if (!canManageEmployees) {
     return (
       <div className="p-6">
@@ -108,132 +87,24 @@ const Employees = () => {
         </Button>
       </div>
 
-      {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Total Employees</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{employees.length}</div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Active</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">
-              {employees.filter(emp => emp.status === 'active').length}
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">On Leave</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-yellow-600">
-              {employees.filter(emp => emp.status === 'on-leave').length}
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Inactive</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-red-600">
-              {employees.filter(emp => emp.status === 'inactive').length}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <EmployeeStats employees={employees} />
 
-      {/* Search and Filters */}
       <Card>
         <CardHeader>
           <CardTitle>Employee List</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center space-x-2 mb-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search employees..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8"
-              />
-            </div>
-          </div>
-
-          <div className="border rounded-md">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Position</TableHead>
-                  <TableHead>Department</TableHead>
-                  <TableHead>Hire Date</TableHead>
-                  <TableHead>Salary</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredEmployees.length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={8} className="text-center py-4">
-                      No employees found
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  filteredEmployees.map((employee) => (
-                    <TableRow key={employee.id}>
-                      <TableCell className="font-medium">{employee.name}</TableCell>
-                      <TableCell>{employee.email}</TableCell>
-                      <TableCell>{employee.position}</TableCell>
-                      <TableCell>{employee.department}</TableCell>
-                      <TableCell>{formatDate(employee.hireDate)}</TableCell>
-                      <TableCell>{formatCurrency(employee.salary)}</TableCell>
-                      <TableCell>{getStatusBadge(employee.status)}</TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex justify-end space-x-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleViewEmployee(employee)}
-                          >
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleEditEmployee(employee)}
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleDeleteEmployee(employee.id)}
-                            className="text-destructive hover:text-destructive"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </div>
+          <EmployeeSearch 
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+          />
+          
+          <EmployeeTable
+            employees={filteredEmployees}
+            onViewEmployee={handleViewEmployee}
+            onEditEmployee={handleEditEmployee}
+            onDeleteEmployee={handleDeleteEmployee}
+          />
         </CardContent>
       </Card>
 
