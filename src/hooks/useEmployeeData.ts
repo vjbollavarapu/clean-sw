@@ -35,11 +35,11 @@ export const useEmployeeData = (userId: string) => {
       { id: '4', action: 'Submitted timesheet', description: 'Week ending June 14', time: '2 days ago' },
     ];
 
-    // Mock upcoming deadlines
+    // Mock upcoming deadlines - fixed with proper literal types
     const upcomingDeadlines = [
-      { id: '1', task: 'Monthly Report Submission', dueDate: '2024-06-20', priority: 'high' },
-      { id: '2', task: 'Team Meeting Preparation', dueDate: '2024-06-18', priority: 'medium' },
-      { id: '3', task: 'Equipment Maintenance Check', dueDate: '2024-06-25', priority: 'low' },
+      { id: '1', task: 'Monthly Report Submission', dueDate: '2024-06-20', priority: 'high' as const },
+      { id: '2', task: 'Team Meeting Preparation', dueDate: '2024-06-18', priority: 'medium' as const },
+      { id: '3', task: 'Equipment Maintenance Check', dueDate: '2024-06-25', priority: 'low' as const },
     ];
 
     return {
