@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -27,6 +26,7 @@ import ServiceHistory from "./pages/ServiceHistory";
 import Billing from "./pages/Billing";
 import PurchaseOrders from "./pages/PurchaseOrders";
 import Suppliers from "./pages/Suppliers";
+import Invoices from "./pages/Invoices";
 
 const queryClient = new QueryClient();
 
@@ -180,6 +180,14 @@ const AppContent = () => {
               <Navigation />
               <main className="flex-1 overflow-auto">
                 <Suppliers />
+              </main>
+            </div>
+          } />
+          <Route path="/invoices" element={
+            <div className="flex h-screen bg-background">
+              <Navigation />
+              <main className="flex-1 overflow-auto">
+                <Invoices />
               </main>
             </div>
           } />

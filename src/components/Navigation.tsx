@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -15,7 +14,8 @@ import {
   LogOut,
   Settings,
   BarChart3,
-  ListTodo
+  ListTodo,
+  FileText
 } from 'lucide-react';
 
 const Navigation = () => {
@@ -94,7 +94,7 @@ const Navigation = () => {
         return [
           ...baseItems,
           { icon: DollarSign, label: 'Financial Dashboard', path: '/financial' },
-          { icon: ClipboardList, label: 'Invoices', path: '/invoices' },
+          { icon: FileText, label: 'Invoices', path: '/invoices' },
           { icon: Building, label: 'Client Billing', path: '/billing' },
           { icon: BarChart3, label: 'Financial Reports', path: '/reports' }
         ];
