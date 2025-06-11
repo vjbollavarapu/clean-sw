@@ -26,7 +26,7 @@ const Navigation = () => {
   const handleLogout = () => {
     console.log('Logout button clicked');
     logout();
-    navigate('/');
+    navigate('/login');
   };
 
   const getNavigationItems = () => {
