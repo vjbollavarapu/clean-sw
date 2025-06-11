@@ -14,6 +14,7 @@ import ServiceOrders from "./pages/ServiceOrders";
 import NewServiceOrder from "./pages/NewServiceOrder";
 import ServiceOrderDetails from "./pages/ServiceOrderDetails";
 import Employees from "./pages/Employees";
+import Clients from "./pages/Clients";
 
 const queryClient = new QueryClient();
 
@@ -63,6 +64,14 @@ const AppContent = () => {
               <Navigation />
               <main className="flex-1 overflow-auto">
                 <Employees />
+              </main>
+            </div>
+          } />
+          <Route path="/clients" element={
+            <div className="flex h-screen bg-background">
+              <Navigation />
+              <main className="flex-1 overflow-auto">
+                <Clients />
               </main>
             </div>
           } />
