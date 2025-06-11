@@ -8,6 +8,9 @@ import RecentTransactions from './accounts/RecentTransactions';
 import AccountsQuickActions from './accounts/AccountsQuickActions';
 import CashFlowAnalysis from './accounts/CashFlowAnalysis';
 import ExpenseBreakdown from './accounts/ExpenseBreakdown';
+import GeneralLedger from './accounts/GeneralLedger';
+import AccountsReceivable from './accounts/AccountsReceivable';
+import AccountsPayable from './accounts/AccountsPayable';
 
 const AccountsDashboard = () => {
   return (
@@ -17,6 +20,15 @@ const AccountsDashboard = () => {
       <div className="grid gap-6 lg:grid-cols-2">
         <MonthlyFinancialChart records={sampleFinancialRecords} />
         <CashFlowAnalysis records={sampleFinancialRecords} />
+      </div>
+      
+      <div className="grid gap-6">
+        <GeneralLedger records={sampleFinancialRecords} />
+      </div>
+      
+      <div className="grid gap-6 lg:grid-cols-2">
+        <AccountsReceivable />
+        <AccountsPayable />
       </div>
       
       <div className="grid gap-6 lg:grid-cols-3">
