@@ -100,7 +100,7 @@ const Navigation = () => {
   return (
     <nav className="bg-card border-r border-border h-screen w-64 p-4 flex flex-col">
       <div className="mb-8">
-        <h1 className="text-xl font-bold text-foreground">CleanCorp ERP</h1>
+        <h1 className="text-xl font-bold text-foreground">CleanSW</h1>
         <p className="text-sm text-muted-foreground">{user.role}</p>
       </div>
       
