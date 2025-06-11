@@ -8,7 +8,7 @@ import { Switch } from '../ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Badge } from '../ui/badge';
 import { Progress } from '../ui/progress';
-import { Backup, HardDrive, Cloud, Download, RefreshCw, Save, Calendar, CheckCircle, AlertCircle } from 'lucide-react';
+import { HardDrive, Cloud, Download, RefreshCw, Save, Calendar, CheckCircle, AlertCircle } from 'lucide-react';
 
 const BackupSettings = () => {
   const [backupSettings, setBackupSettings] = useState({
@@ -105,7 +105,7 @@ const BackupSettings = () => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Backup className="h-5 w-5" />
+            <HardDrive className="h-5 w-5" />
             Backup Configuration
           </CardTitle>
           <CardDescription>Configure automatic backup settings</CardDescription>
@@ -236,7 +236,7 @@ const BackupSettings = () => {
 
           <div className="pt-4 border-t">
             <Button onClick={runManualBackup} className="w-full">
-              <Backup className="h-4 w-4 mr-2" />
+              <HardDrive className="h-4 w-4 mr-2" />
               Run Manual Backup
             </Button>
           </div>

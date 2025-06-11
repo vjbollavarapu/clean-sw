@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
@@ -17,7 +16,7 @@ import {
   Clock,
   Server,
   FileText,
-  Backup
+  HardDrive
 } from 'lucide-react';
 import GeneralSettings from '../components/settings/GeneralSettings';
 import UserRoleSettings from '../components/settings/UserRoleSettings';
@@ -35,7 +34,7 @@ const SystemSettings = () => {
     { id: 'security', label: 'Security', icon: Shield, description: 'Security policies and authentication' },
     { id: 'database', label: 'Database', icon: Database, description: 'Database configuration and optimization' },
     { id: 'notifications', label: 'Notifications', icon: Bell, description: 'Email and system notifications' },
-    { id: 'backup', label: 'Backup & Recovery', icon: Backup, description: 'Data backup and recovery settings' }
+    { id: 'backup', label: 'Backup & Recovery', icon: HardDrive, description: 'Data backup and recovery settings' }
   ];
 
   const systemStatus = {
