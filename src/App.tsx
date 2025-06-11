@@ -20,6 +20,7 @@ import Financial from "./pages/Financial";
 import Reports from "./pages/Reports";
 import SystemSettings from "./pages/SystemSettings";
 import Attendance from "./pages/Attendance";
+import Payroll from "./pages/Payroll";
 
 const queryClient = new QueryClient();
 
@@ -117,6 +118,14 @@ const AppContent = () => {
               <Navigation />
               <main className="flex-1 overflow-auto">
                 <Attendance />
+              </main>
+            </div>
+          } />
+          <Route path="/payroll" element={
+            <div className="flex h-screen bg-background">
+              <Navigation />
+              <main className="flex-1 overflow-auto">
+                <Payroll />
               </main>
             </div>
           } />
