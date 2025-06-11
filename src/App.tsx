@@ -25,6 +25,7 @@ import Tasks from "./pages/Tasks";
 import Timesheet from "./pages/Timesheet";
 import ServiceHistory from "./pages/ServiceHistory";
 import Billing from "./pages/Billing";
+import PurchaseOrders from "./pages/PurchaseOrders";
 
 const queryClient = new QueryClient();
 
@@ -162,6 +163,14 @@ const AppContent = () => {
               <Navigation />
               <main className="flex-1 overflow-auto">
                 <Billing />
+              </main>
+            </div>
+          } />
+          <Route path="/purchase-orders" element={
+            <div className="flex h-screen bg-background">
+              <Navigation />
+              <main className="flex-1 overflow-auto">
+                <PurchaseOrders />
               </main>
             </div>
           } />
