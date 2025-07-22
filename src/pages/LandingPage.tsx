@@ -21,7 +21,7 @@ const LandingPage = () => {
       <InteractiveDemo />
       <BenefitsSection />
       <TestimonialsSection />
-      <PricingSection />
+      {/* <PricingSection />*/}
       <CTASection />
       <Footer />
     </div>
